@@ -6,10 +6,9 @@ class CountryRepository {
   final _networkingService = locator<NetworkService>();
   Future<List<Country>> getCountries() async {
     final response = await _networkingService.get(
-      'https://restcountries.eu/rest/v2/all',
+      '/region/europe',
     );
     if (response.statusCode == 200) {
-      print(response);
       final jsonResponse = response.data;
       return (jsonResponse as List)
           .map((country) => Country.fromJson(country))
