@@ -1,7 +1,7 @@
-import 'package:countries_navigator/pages/countries_list_page.dart';
-import 'package:countries_navigator/pages/error_page.dart';
-import 'package:countries_navigator/router/route_definition.dart';
-import 'package:countries_navigator/widgets/full_screen_image.dart';
+import 'package:countries_navigator/core/widgets/full_screen_image.dart';
+import 'package:countries_navigator/features/countries/presentation/pages/countries_list_page.dart';
+import 'package:countries_navigator/core/pages/error_page.dart';
+import 'package:countries_navigator/core/router/route_definition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 

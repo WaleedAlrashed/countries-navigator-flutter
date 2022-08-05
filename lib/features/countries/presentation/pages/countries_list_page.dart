@@ -1,9 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:countries_navigator/models/country.dart';
-import 'package:countries_navigator/repositories/country_repository.dart';
-import 'package:countries_navigator/services/logging_service.dart';
-import 'package:countries_navigator/services/services_locator.dart';
-import 'package:countries_navigator/widgets/country_list_item.dart';
+import 'package:countries_navigator/features/countries/data/models/country.dart';
+import 'package:countries_navigator/features/countries/data/repositories/country_repository.dart';
+import 'package:countries_navigator/core/services/logging_service.dart';
+import 'package:countries_navigator/core/services/services_locator.dart';
+import 'package:countries_navigator/features/countries/presentation/widgets/country_list_item.dart';
 import 'package:flutter/material.dart';
 
 class CountriesListPage extends StatefulWidget {

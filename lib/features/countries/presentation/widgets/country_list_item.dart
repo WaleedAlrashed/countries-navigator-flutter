@@ -1,8 +1,9 @@
 //import material
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:countries_navigator/models/country.dart';
-import 'package:countries_navigator/router/route_definition.dart';
-import 'package:countries_navigator/widgets/full_screen_image.dart';
+
+import 'package:countries_navigator/core/router/route_definition.dart';
+import 'package:countries_navigator/features/countries/data/models/country.dart';
+import 'package:countries_navigator/core/widgets/full_screen_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

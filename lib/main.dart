@@ -1,6 +1,6 @@
-import 'package:countries_navigator/router/routes.dart';
+import 'package:countries_navigator/core/services/services_locator.dart';
+import 'package:countries_navigator/core/router/routes.dart';
 import 'package:flutter/material.dart';
-import 'services/services_locator.dart';
 
 void main() async {
   bootStrapApplication();
