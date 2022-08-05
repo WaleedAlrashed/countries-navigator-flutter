@@ -77,7 +77,7 @@ class Country {
     maps = (json['maps'] as Map<String, dynamic>?) != null
         ? Maps.fromJson(json['maps'] as Map<String, dynamic>)
         : null;
-    population = json['population'] as double?;
+    population = json['population'];
     timezones =
         (json['timezones'] as List?)?.map((dynamic e) => e as String).toList();
     continents =
@@ -111,7 +111,7 @@ class Country {
   double? area;
   String? flag;
   Maps? maps;
-  double? population;
+  dynamic population;
   List<String>? timezones;
   List<String>? continents;
   Flags? flags;

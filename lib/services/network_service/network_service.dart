@@ -48,7 +48,7 @@ class NetworkService {
 
   NetworkService() {
     dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
-    dio.interceptors.add(PrettyDioLogger());
+    // dio.interceptors.add(PrettyDioLogger());
     dio.interceptors.add(
       RetryInterceptor(
         dio: dio,

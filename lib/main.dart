@@ -1,4 +1,4 @@
-import 'package:countries_navigator/pages/countries_list_page.dart';
+import 'package:countries_navigator/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'services/services_locator.dart';
 
@@ -12,12 +12,14 @@ class MainAppClass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
       title: 'Countries Navigator',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CountriesListPage(),
+      // home: const CountriesListPage(),
     );
   }
 }

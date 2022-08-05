@@ -3,6 +3,7 @@ import 'package:countries_navigator/models/country.dart';
 import 'package:countries_navigator/repositories/country_repository.dart';
 import 'package:countries_navigator/services/logging_service.dart';
 import 'package:countries_navigator/services/services_locator.dart';
+import 'package:countries_navigator/widgets/country_list_item.dart';
 import 'package:flutter/material.dart';
 
 class CountriesListPage extends StatefulWidget {
@@ -16,10 +17,11 @@ class _CountriesListPageState extends State<CountriesListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Countries List'),
-        ),
-        body: const CountriesGridViewWidget());
+      appBar: AppBar(
+        title: const Text('Countries List'),
+      ),
+      body: const CountriesGridViewWidget(),
+    );
   }
 }
 
@@ -48,22 +50,14 @@ class _CountriesGridViewWidgetState extends State<CountriesGridViewWidget> {
             child: CircularProgressIndicator(),
           )
         : GridView.count(
+            addAutomaticKeepAlives: true,
+            addRepaintBoundaries: true,
             crossAxisCount: 4,
+            cacheExtent: 100,
             children: _countries
                 .map(
-                  (country) => ListTile(
-                    leading: SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: CachedNetworkImage(
-                          imageUrl: country.flags!.png.toString()),
-                    ),
-                    title: Text(
-                      country.name?.officialNativeName.toString() ?? '',
-                    ),
-                    subtitle: Text(
-                      country.name?.commonNativeName.toString() ?? '',
-                    ),
+                  (country) => CountryListItem(
+                    country: country,
                   ),
                 )
                 .toList(),
