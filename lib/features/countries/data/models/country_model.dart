@@ -1,41 +1,13 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-class Country {
-  Country({
-    this.name,
-    this.tld,
-    this.cca2,
-    this.cca3,
-    this.independent,
-    this.status,
-    this.unMember,
-    this.currencies,
-    this.idd,
-    this.capital,
-    this.altSpellings,
-    this.region,
-    this.subregion,
-    this.languages,
-    this.translations,
-    this.latlng,
-    this.landlocked,
-    this.borders,
-    this.area,
-    this.flag,
-    this.maps,
-    this.population,
-    this.timezones,
-    this.continents,
-    this.flags,
-    this.coatOfArms,
-    this.startOfWeek,
-  });
+import 'package:countries_navigator/features/countries/domain/entites/country.dart';
 
-  Country.withError(String errorMessage) {
+class CountryModel extends Country {
+  CountryModel.withError(String errorMessage) {
     error = errorMessage;
   }
 
-  Country.fromJson(Map<String, dynamic> json) {
+  CountryModel.fromJson(Map<String, dynamic> json) {
     name = (json['name'] as Map<String, dynamic>?) != null
         ? Name.fromJson(json['name'] as Map<String, dynamic>)
         : null;
@@ -90,34 +62,6 @@ class Country {
         : null;
     startOfWeek = json['startOfWeek'] as String?;
   }
-  Name? name;
-  List<String>? tld;
-  String? cca2;
-  String? cca3;
-  bool? independent;
-  String? status;
-  bool? unMember;
-  Currencies? currencies;
-  Idd? idd;
-  List<String>? capital;
-  List<String>? altSpellings;
-  String? region;
-  String? subregion;
-  Languages? languages;
-  Translations? translations;
-  List<double>? latlng;
-  bool? landlocked;
-  List<String>? borders;
-  double? area;
-  String? flag;
-  Maps? maps;
-  dynamic population;
-  List<String>? timezones;
-  List<String>? continents;
-  Flags? flags;
-  CoatOfArms? coatOfArms;
-  String? startOfWeek;
-  String? error;
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};

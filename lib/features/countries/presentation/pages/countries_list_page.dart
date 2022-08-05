@@ -1,4 +1,4 @@
-import 'package:countries_navigator/features/countries/data/models/country.dart';
+import 'package:countries_navigator/features/countries/data/models/country_model.dart';
 import 'package:countries_navigator/features/countries/data/repositories/country_repository.dart';
 import 'package:countries_navigator/core/services/logging_service.dart';
 import 'package:countries_navigator/core/services/services_locator.dart';
@@ -33,7 +33,7 @@ class CountriesGridViewWidget extends StatefulWidget {
 }
 
 class _CountriesGridViewWidgetState extends State<CountriesGridViewWidget> {
-  List<Country> _countries = [];
+  List<CountryModel> _countries = [];
   bool _isLoading = true;
 
   @override
