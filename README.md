@@ -1,6 +1,5 @@
 # countries_navigator
 
-A new Flutter project.
 
 ## Getting Started
 
@@ -14,3 +13,8 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+### TOOD Features
+
+Download a country profile:
+go to a country details page , then generate a pdf that contains info about this particular country

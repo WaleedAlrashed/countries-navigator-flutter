@@ -1,16 +1,14 @@
 //import material
 import 'package:cached_network_image/cached_network_image.dart';
-
-import 'package:countries_navigator/core/router/route_definition.dart';
-import 'package:countries_navigator/features/countries/data/models/country_model.dart';
 import 'package:countries_navigator/core/widgets/full_screen_image.dart';
+import 'package:countries_navigator/features/countries/domain/entites/country.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CountryListItem extends StatelessWidget {
   const CountryListItem({Key? key, required this.country}) : super(key: key);
 
-  final CountryModel country;
+  final Country country;
   @override
   Widget build(BuildContext context) {
     return Column(

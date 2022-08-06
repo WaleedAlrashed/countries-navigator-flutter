@@ -1,18 +1,11 @@
-import 'package:countries_navigator/features/countries/data/models/country_model.dart';
-import 'package:countries_navigator/features/countries/data/repositories/country_repository.dart';
-import 'package:countries_navigator/core/services/logging_service.dart';
-import 'package:countries_navigator/core/services/services_locator.dart';
+import 'package:countries_navigator/features/countries/presentation/bloc/countries/countries_bloc.dart';
 import 'package:countries_navigator/features/countries/presentation/widgets/country_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CountriesListPage extends StatefulWidget {
+class CountriesListPage extends StatelessWidget {
   const CountriesListPage({Key? key}) : super(key: key);
 
-  @override
-  State<CountriesListPage> createState() => _CountriesListPageState();
-}
-
-class _CountriesListPageState extends State<CountriesListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,59 +17,61 @@ class _CountriesListPageState extends State<CountriesListPage> {
   }
 }
 
-class CountriesGridViewWidget extends StatefulWidget {
+class CountriesGridViewWidget extends StatelessWidget {
   const CountriesGridViewWidget({Key? key}) : super(key: key);
 
   @override
-  State<CountriesGridViewWidget> createState() =>
-      _CountriesGridViewWidgetState();
-}
-
-class _CountriesGridViewWidgetState extends State<CountriesGridViewWidget> {
-  List<CountryModel> _countries = [];
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchCountries();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: BlocBuilder<CountriesBloc, CountriesState>(
+        builder: (context, state) {
+          if (state is LoadingCountriesState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is LoadedCountriesState) {
+            return RefreshIndicator(
+              onRefresh: () => _onRefresh(context),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: GridView.count(
+                  addAutomaticKeepAlives: true,
+                  addRepaintBoundaries: true,
+                  crossAxisCount:
+                      MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                  cacheExtent: 100,
+                  children: state.countries.isEmpty
+                      ? [
+                          const Center(
+                            child: Text('No Countries'),
+                          ),
+                        ]
+                      : state.countries
+                          .map(
+                            (country) => CountryListItem(
+                              country: country,
+                            ),
+                          )
+                          .toList(),
+                ),
+              ),
+            );
+          } else if (state is ErrorCountriesState) {
+            return Center(
+              child: Text(state.message.toString()),
+            );
+          }
+          return const Center(
             child: CircularProgressIndicator(),
-          )
-        : GridView.count(
-            addAutomaticKeepAlives: true,
-            addRepaintBoundaries: true,
-            crossAxisCount: 4,
-            cacheExtent: 100,
-            children: _countries
-                .map(
-                  (country) => CountryListItem(
-                    country: country,
-                  ),
-                )
-                .toList(),
           );
+        },
+      ),
+    );
   }
 
-  void _fetchCountries() async {
-    final log = locator<LogService>();
-    final countryRepository = CountryRepository();
-    var singleCountry = 'https://restcountries.com/v3.1/name/turkey';
-    var region = 'https://restcountries.com/v3.1/region/europe';
-    var code = 'https://restcountries.com/v3.1/alpha/syr';
-    var countries = await countryRepository.getCountries();
-
-    setState(
-      () {
-        _countries = countries;
-
-        _isLoading = false;
-      },
-    );
+  Future<void> _onRefresh(BuildContext context) async {
+    BlocProvider.of<CountriesBloc>(context).add(RefreshCountriesEvent());
   }
 }

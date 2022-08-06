@@ -1,9 +1,12 @@
-import 'package:countries_navigator/core/services/services_locator.dart';
+import 'package:countries_navigator/core/services/services_locator.dart' as di;
 import 'package:countries_navigator/core/router/routes.dart';
+import 'package:countries_navigator/features/countries/presentation/bloc/countries/countries_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
-  bootStrapApplication();
+  WidgetsFlutterBinding.ensureInitialized();
+  await bootStrapApplication();
   runApp(const MainAppClass());
 }
 
@@ -12,18 +15,29 @@ class MainAppClass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
-      title: 'Countries Navigator',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => di.locator<CountriesBloc>()
+            ..add(
+              GetAllCountriesEvent(),
+            ),
+        ),
+      ],
+      child: MaterialApp.router(
+        routeInformationProvider: router.routeInformationProvider,
+        routeInformationParser: router.routeInformationParser,
+        routerDelegate: router.routerDelegate,
+        title: 'Countries Navigator',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: const CountriesListPage(),
       ),
-      // home: const CountriesListPage(),
     );
   }
 }
 
 bootStrapApplication() async {
-  await setupServicesLocator();
+  await di.setupServicesLocator();
 }
