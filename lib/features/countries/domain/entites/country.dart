@@ -61,6 +61,8 @@ class Country extends Equatable {
     this.startOfWeek,
   });
 
+  bool get isIndependent => independent ?? false;
+
   @override
   List<Object?> get props => [
         name,
