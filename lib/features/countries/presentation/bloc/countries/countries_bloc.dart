@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart' show Bloc;
 import 'package:countries_navigator/core/constants/failures_strings.dart';
 import 'package:countries_navigator/core/errors/faliures.dart';
+import 'package:countries_navigator/features/countries/data/models/country_model.dart';
 import 'package:countries_navigator/features/countries/domain/entites/country.dart';
+import 'package:countries_navigator/features/countries/domain/usecases/generate_country_profile.dart';
 import 'package:countries_navigator/features/countries/domain/usecases/get_all_countries.dart';
 import 'package:dartz/dartz.dart' show Either;
 import 'package:equatable/equatable.dart';
+import 'package:pdf/widgets.dart';
 
 part 'countries_event.dart';
 part 'countries_state.dart';

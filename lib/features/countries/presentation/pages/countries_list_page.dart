@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:countries_navigator/features/countries/presentation/bloc/countries/countries_bloc.dart';
 import 'package:countries_navigator/features/countries/presentation/widgets/country_list_item.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,15 @@ class CountriesListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Countries List'),
+        title: const Text('Countries Navigator 🧭'),
+        flexibleSpace: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
+            child: Container(
+              color: Colors.transparent,
+            ),
+          ),
+        ),
       ),
       body: const CountriesGridViewWidget(),
     );

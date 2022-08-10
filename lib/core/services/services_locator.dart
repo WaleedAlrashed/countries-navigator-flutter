@@ -3,8 +3,10 @@ import 'package:countries_navigator/features/countries/data/datasources/country_
 import 'package:countries_navigator/features/countries/data/datasources/country_remote_data_source.dart';
 import 'package:countries_navigator/features/countries/data/repositories/country_repository_implementation.dart';
 import 'package:countries_navigator/features/countries/domain/repsitories/coutntry_repository.dart';
+import 'package:countries_navigator/features/countries/domain/usecases/generate_country_profile.dart';
 import 'package:countries_navigator/features/countries/domain/usecases/get_all_countries.dart';
 import 'package:countries_navigator/features/countries/presentation/bloc/countries/countries_bloc.dart';
+import 'package:countries_navigator/features/countries/presentation/bloc/country_data/country_data_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,6 +29,12 @@ Future<void> setupServicesLocator() async {
       getAllCountries: locator(),
     ),
   );
+
+  locator.registerFactory(
+    () => CountryDataBloc(
+      generateCountryProfile: locator(),
+    ),
+  );
   //use cases
   locator.registerLazySingleton<GetAllCountriesUsecase>(
     () => GetAllCountriesUsecase(
@@ -34,8 +42,13 @@ Future<void> setupServicesLocator() async {
     ),
   );
 
-  //repositories
+  locator.registerLazySingleton(
+    () => GenerateCountryProfileUsecase(
+      locator(),
+    ),
+  );
 
+  //repositories
   locator.registerLazySingleton<CountryRepository>(
     () => CountryRepositoryImplementation(
       remoteDataSource: locator(),

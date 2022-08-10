@@ -3,8 +3,11 @@ import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:countries_navigator/features/countries/domain/entites/country.dart';
+import 'package:countries_navigator/features/countries/presentation/bloc/countries/countries_bloc.dart';
+import 'package:countries_navigator/features/countries/presentation/bloc/country_data/country_data_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CountryDetailsPage extends StatelessWidget {
   const CountryDetailsPage({Key? key, required this.country}) : super(key: key);
@@ -37,7 +40,7 @@ class CountryDetailsPage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
-              expandedHeight: 240.0,
+              expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
                 title: AutoSizeText(country.name!.official!),
                 titlePadding: const EdgeInsets.all(12.0),
@@ -79,6 +82,7 @@ class CountryDetailsPage extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
+                  //Country Info
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: ClipRect(
@@ -158,6 +162,17 @@ class CountryDetailsPage extends StatelessWidget {
                                   "Time Zones: ${country.timezones}",
                                   // style: AppTextStyle.title,
                                 ),
+                              ),
+                              //Icon button with pdf icon
+                              IconButton(
+                                icon: const Icon(Icons.picture_as_pdf_outlined),
+                                onPressed: () {
+                                  BlocProvider.of<CountryDataBloc>(context).add(
+                                    GenerateCountryProfileEvent(
+                                      country: country,
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),

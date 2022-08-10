@@ -1,6 +1,8 @@
 import 'package:countries_navigator/core/services/services_locator.dart' as di;
 import 'package:countries_navigator/core/router/routes.dart';
+import 'package:countries_navigator/features/countries/domain/usecases/generate_country_profile.dart';
 import 'package:countries_navigator/features/countries/presentation/bloc/countries/countries_bloc.dart';
+import 'package:countries_navigator/features/countries/presentation/bloc/country_data/country_data_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +25,9 @@ class MainAppClass extends StatelessWidget {
               GetAllCountriesEvent(),
             ),
         ),
+        BlocProvider(
+          create: (context) => di.locator<CountryDataBloc>(),
+        ),
       ],
       child: MaterialApp.router(
         routeInformationProvider: router.routeInformationProvider,
@@ -30,7 +35,7 @@ class MainAppClass extends StatelessWidget {
         routerDelegate: router.routerDelegate,
         title: 'Countries Navigator',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.purple,
         ),
         // home: const CountriesListPage(),
       ),
