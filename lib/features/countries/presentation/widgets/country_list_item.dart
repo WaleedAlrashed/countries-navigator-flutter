@@ -86,7 +86,7 @@ class CountryListItem extends StatelessWidget {
                 height: 50,
                 child: CachedNetworkImage(
                   imageUrl: country.flags!.png.toString(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
               subtitle: SizedBox(
@@ -103,7 +103,7 @@ class CountryListItem extends StatelessWidget {
             ),
           ),
           AutoSizeText(
-            'Capital: ${country.capital!.first}',
+            'Capital: ${country.capital != null ? country.capital!.first : 'No Capital'}',
             style: const TextStyle(fontSize: 12),
           ),
           Expanded(

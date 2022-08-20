@@ -13,13 +13,16 @@ class CountryRemoteDataSourceImplementation implements CountryRemoteDataSource {
   @override
   Future<List<CountryModel>> getCountries() async {
     final response = await networkService.get(
-      '/region/europe',
+      '/region/america',
     );
     if (response.statusCode == 200) {
       final jsonResponse = response.data;
-      return (jsonResponse as List)
+      var countriesList = (jsonResponse as List)
           .map<CountryModel>((country) => CountryModel.fromJson(country))
           .toList();
+      //filter countries list
+      countriesList.removeWhere((country) => country.cca2 == 'IL');
+      return countriesList;
     } else {
       throw ServerException();
     }
