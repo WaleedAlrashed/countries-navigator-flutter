@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CountryDetailsPage extends StatelessWidget {
   const CountryDetailsPage({Key? key, required this.country}) : super(key: key);
@@ -49,7 +50,11 @@ class CountryDetailsPage extends StatelessWidget {
                     if (await canLaunch(url)) {
                       await launch(url);
                     } else {
-                      throw 'Could not launch $url';
+                      Fluttertoast.showToast(
+                        msg: "Could not launch $url",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                      );
                     }
                   },
                   child: AutoSizeText(country.name!.official!),
