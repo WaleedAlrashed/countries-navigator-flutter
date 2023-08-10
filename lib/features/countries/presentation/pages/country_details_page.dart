@@ -6,8 +6,9 @@ import 'package:countries_navigator/features/countries/domain/entites/country.da
 import 'package:countries_navigator/features/countries/presentation/bloc/countries/countries_bloc.dart';
 import 'package:countries_navigator/features/countries/presentation/bloc/country_data/country_data_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CountryDetailsPage extends StatelessWidget {
   const CountryDetailsPage({Key? key, required this.country}) : super(key: key);
@@ -42,7 +43,22 @@ class CountryDetailsPage extends StatelessWidget {
             SliverAppBar(
               expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
-                title: AutoSizeText(country.name!.official!),
+                title: GestureDetector(
+                  onTap: () async {
+                    final url =
+                        'https://en.wikipedia.org/wiki/${country.name!.official!}';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "Could not launch $url",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                      );
+                    }
+                  },
+                  child: AutoSizeText(country.name!.official!),
+                ),
                 titlePadding: const EdgeInsets.all(12.0),
                 background: Container(
                   decoration: BoxDecoration(
