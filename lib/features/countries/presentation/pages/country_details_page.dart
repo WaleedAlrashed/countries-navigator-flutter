@@ -6,7 +6,6 @@ import 'package:countries_navigator/features/countries/domain/entites/country.da
 import 'package:countries_navigator/features/countries/presentation/bloc/countries/countries_bloc.dart';
 import 'package:countries_navigator/features/countries/presentation/bloc/country_data/country_data_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -46,7 +45,8 @@ class CountryDetailsPage extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 title: GestureDetector(
                   onTap: () async {
-                    final url = 'https://en.wikipedia.org/wiki/${country.name!.official!}';
+                    final url =
+                        'https://en.wikipedia.org/wiki/${country.name!.official!}';
                     if (await canLaunch(url)) {
                       await launch(url);
                     } else {
