@@ -78,4 +78,5 @@ Future<void> setupServicesLocator() async {
   // locator.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
   locator.registerLazySingleton(() => InternetConnectionCheckerPlus());
+  locator.registerLazySingleton(() => PdfService());
 }
