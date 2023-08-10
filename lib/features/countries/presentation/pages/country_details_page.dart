@@ -183,11 +183,9 @@ class CountryDetailsPage extends StatelessWidget {
                               IconButton(
                                 icon: const Icon(Icons.picture_as_pdf_outlined),
                                 onPressed: () {
-                                  BlocProvider.of<CountryDataBloc>(context).add(
-                                    GenerateCountryProfileEvent(
-                                      country: country,
-                                    ),
-                                  );
+                                  // Call the PDF service with the necessary data
+                                  final pdfService = locator<PdfService>();
+                                  pdfService.generateCountryProfile(country);
                                 },
                               ),
                             ],
