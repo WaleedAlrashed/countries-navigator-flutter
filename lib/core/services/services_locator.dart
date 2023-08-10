@@ -11,6 +11,7 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:countries_navigator/core/services/services.dart';
+import 'package:countries_navigator/core/services/pdf_service.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -78,5 +79,5 @@ Future<void> setupServicesLocator() async {
   // locator.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
   locator.registerLazySingleton(() => InternetConnectionCheckerPlus());
-  locator.registerLazySingleton(() => PdfService());
+  locator.registerLazySingleton(() => PdfService(/* provide necessary arguments here if any */));
 }
