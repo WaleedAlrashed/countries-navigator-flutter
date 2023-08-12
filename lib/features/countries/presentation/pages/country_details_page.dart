@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:countries_navigator/core/services/pdf_service.dart';
+import 'package:countries_navigator/core/services/services_locator.dart';
 
 class CountryDetailsPage extends StatelessWidget {
   const CountryDetailsPage({Key? key, required this.country}) : super(key: key);
@@ -183,11 +185,14 @@ class CountryDetailsPage extends StatelessWidget {
                               IconButton(
                                 icon: const Icon(Icons.picture_as_pdf_outlined),
                                 onPressed: () {
-                                  BlocProvider.of<CountryDataBloc>(context).add(
-                                    GenerateCountryProfileEvent(
-                                      country: country,
-                                    ),
-                                  );
+                                  try {
+                                    // Call the PDF service with the necessary data
+                                    final pdfService = locator<PdfService>();
+                                    pdfService.generateCountryProfile(country /* provide other necessary arguments here if any */);
+                                  } catch (e) {
+                                    // Handle exception
+                                    print(e);
+                                  }
                                 },
                               ),
                             ],
