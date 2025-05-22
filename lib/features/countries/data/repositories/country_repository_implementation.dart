@@ -22,19 +22,19 @@ class CountryRepositoryImplementation implements CountryRepository {
 
   @override
   Future<Either<Failure, List<CountryModel>>> getCountries() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final remoteCountries = await remoteDataSource.getCountries();
-        localDataSource.cacheCountries(remoteCountries);
-        return Right(remoteCountries);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final localCountries = await localDataSource.getCachedCountries();
-        return Right(localCountries);
-      } on EmptyCacheException {
+    try {
+      final localCountries = await localDataSource.getCachedCountries();
+      return Right(localCountries);
+    } on EmptyCacheException {
+      if (await networkInfo.isConnected) {
+        try {
+          final remoteCountries = await remoteDataSource.getCountries();
+          localDataSource.cacheCountries(remoteCountries);
+          return Right(remoteCountries);
+        } on ServerException {
+          return Left(ServerFailure());
+        }
+      } else {
         return Left(EmptyCacheFailure());
       }
     }
